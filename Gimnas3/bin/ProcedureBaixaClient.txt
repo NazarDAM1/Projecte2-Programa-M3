@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `baixaClient`(in _dni text)
+BEGIN
+DECLARE _last_id_historial INT;
+delete from clients where clients.dni = _dni;
+insert into historial value ();
+select historial.id into _last_id_historial from historial order by id DESC LIMIT 1;
+insert into alt_baix (id,dni,data_baix)value (_last_id_historial,_dni,(curdate()));
+END
+
+
+
+
+Desabilitar Fk forents 
