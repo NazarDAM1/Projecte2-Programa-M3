@@ -580,7 +580,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultaClientsMesReserves`()
 BEGIN
-SELECT clients.*,count(registrencolect.dni) + (Select count(registrenindv.dni) from registrenindv where registrenindv.dni = clients.dni)as _suma FROM registrencolect, clients where registrencolect.dni = clients.dni group by registrencolect.dni order by count(registrencolect.dni) desc;
+select clients.*,sum(_sum)as _suma from (SELECT clients.*,count(registrencolect.dni) as _sum FROM registrencolect, clients where registrencolect.dni = clients.dni group by registrencolect.dni union SELECT clients.*,count(registrenindv.dni) as _sum FROM registrenindv, clients where registrenindv.dni = clients.dni group by registrenindv.dni) clients;
 
 END ;;
 DELIMITER ;
